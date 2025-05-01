@@ -57,5 +57,5 @@ jobs:
       - name: Save artifacts to GitHub
         uses: actions/upload-artifact@v4
         with:
-          name: py-upper/upper-exe
+          name: py-upper/dist/upper-exe
           path: dist/uppercase.exe
