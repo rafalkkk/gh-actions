@@ -5,7 +5,22 @@ name: Default workflow
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
+  # push:
+  workflow_dispatch:
+    inputs:
+      customer:
+        description: 'Customer symbol'
+        required: true
+        default: 'A_CORP'
+        type: choice
+        options:
+        - A_CORP
+        - A_BANK
+        - A_WAREHOUSE
+      operator_name:
+        description: 'Your name'
+        required: false
+        type: string
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,3 +44,11 @@ jobs:
           echo "Going sleep..."
           sleep 10
           echo "... nice, now I'm ready to work"
+
+      - name: Testing input parameters for manual run
+        run: |
+          echo "The customer is $CUSTOMER"
+          echo "The operator is $OPERATOR"
+        env:
+          CUSTOMER: ${{ inputs.customer }}
+          OPERATOR: ${{ inputs.operator_name }}
