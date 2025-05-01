@@ -11,6 +11,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Check python version
+        run: python -V
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -23,7 +25,10 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.13'
+
+      - name: Check python version
+        run: python -V
 
       - name: Install dependencies
         working-directory: py-upper
