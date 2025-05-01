@@ -28,4 +28,4 @@ jobs:
         run: |
           echo "Going sleep...""
           sleep 10
-          echo "... nice, now I'm ready to work"
+          echo "... nice, now I\'m ready to work"
