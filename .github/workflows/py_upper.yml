@@ -55,7 +55,7 @@ jobs:
         run: pyinstaller --onefile uppercase.py
 
       - name: Save artifacts to GitHub
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: py-upper/upper-exe
           path: dist/uppercase.exe
