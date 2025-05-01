@@ -20,13 +20,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        working-directory: ./py_uppper
+        working-directory: py_uppper
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt || echo "Missing file: requirements.txt"
 
       - name: Run tests
-        working-directory: ./py_upper
+        working-directory: py_upper
         run: pytest
 
   build:
@@ -45,11 +45,11 @@ jobs:
         run: pip install pyinstaller
 
       - name: Build EXE file
-        working-directory: ./py-upper
+        working-directory: py-upper
         run: pyinstaller --onefile uppercase.py
 
       - name: Save artifacts to GitHub
         uses: actions/upload-artifact@v3
         with:
-          name: upper-exe
+          name: py_upper/upper-exe
           path: dist/uppercase.exe
