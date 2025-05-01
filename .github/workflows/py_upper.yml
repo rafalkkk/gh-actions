@@ -3,7 +3,7 @@ name: Run Python Tests & Build EXE
 on:
   push:
     paths:
-      - ".github/qorkflows/py_upper.yml"
+      - ".github/workflows/py_upper.yml"
       - "py_upper/**"
   workflow_dispatch:
 
