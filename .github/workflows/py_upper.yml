@@ -14,6 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Sprawdzenie struktury katalogów
+        run: pwd
+
+      - name: Sprawdzenie struktury katalogów
+        run: ls -R
+
       - name: Install Python
         uses: actions/setup-python@v4
         with:
