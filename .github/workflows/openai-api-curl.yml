@@ -14,11 +14,16 @@ jobs:
 
       - name: Wysyłanie zapytania do OpenAI API
         run: |
-          JSON=$(printf '{"role": "user", "content": "You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. The message is: %s"}' "$TEXT")
+          DESC="You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. The message is: "$TEXT" 
+          JSON=$(jq -n --arg text "$DESC" '{"role": "user", "content": $text}')
+          #JSON=$(printf '{"role": "user", "content": "You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. The message is: %s"}' "$TEXT")
           curl -X POST "https://api.openai.com/v1/chat/completions" \
           -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d $( printf '{ "model": "gpt-4o-mini-2024-07-18", "messages": ["%s"] }' $JSON ) > output.json
+          -d '{ 
+            "model": "gpt-4o-mini-2024-07-18", 
+            "messages": [$JSON] 
+            }' > output.json
         env:
           TEXT: ${{ github.event.comment.body }}
 
