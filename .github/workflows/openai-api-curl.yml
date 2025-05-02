@@ -18,7 +18,7 @@ jobs:
           curl -X POST "https://api.openai.com/v1/chat/completions" \
           -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d $( printf '{ "model": "gpt-4o-mini-2024-07-18", "messages": [%s] }' $JSON ) > output.json
+          -d $( printf '{ "model": "gpt-4o-mini-2024-07-18", "messages": ["%s"] }' $JSON ) > output.json
         env:
           TEXT: ${{ github.event.comment.body }}
 
