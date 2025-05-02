@@ -22,4 +22,6 @@ jobs:
 
       - name: gh workflow list
         run: gh workflow list
+        env:
+          GH_TOKEN: "${{secrets.GITHUB_TOKEN}}"
         
