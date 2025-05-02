@@ -20,7 +20,7 @@ jobs:
 
       - name: Wysyłanie zapytania do OpenAI API
         run: |
-          DESC="You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. The message is: " 
+          DESC="You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. If you sign your response please use name Martik Bartik. The message is: " 
           ESCAPED_TEXT=$(echo "$DESC $TEXT" | sed "s/'/\'/g")
           JSON="{ \"model\": \"gpt-4o-mini-2024-07-18\", \"messages\": [{\"role\": \"user\", \"content\": \"$ESCAPED_TEXT\"}] }"
           
