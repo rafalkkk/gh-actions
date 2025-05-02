@@ -17,12 +17,16 @@ jobs:
           DESC="You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. The message is: " 
           ESCAPED_TEXT=$(echo "$DESC $TEXT" | sed "s/'/\'/g")
           JSON="{ \"model\": \"gpt-4o-mini-2024-07-18\", \"messages\": [{\"role\": \"user\", \"content\": \"$ESCAPED_TEXT\"}] }"
+
+          echo "----"
+          echo $JSON
+          echo "----"
           
           #JSON=$(printf '{"role": "user", "content": "You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. The message is: %s"}' "$TEXT")
           curl -X POST "https://api.openai.com/v1/chat/completions" \
           -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d $JSON > output.json
+          -d "$JSON" > output.json
         env:
           TEXT: ${{ github.event.comment.body }}
 
