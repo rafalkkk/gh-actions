@@ -1,0 +1,24 @@
+name: OpenAI API Request
+on: 
+  workflow_dispatch:
+  
+
+jobs:
+  call_openai:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobranie repozytorium
+        uses: actions/checkout@v4
+
+      - name: Wysyłanie zapytania do OpenAI API
+        run: |
+          curl -X POST "https://api.openai.com/v1/chat/completions" \
+          -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "model": "gpt-4",
+            "messages": [{"role": "user", "content": "Hello OpenAI!"}]
+          }' > output.json
+
+      - name: Wyświetlenie odpowiedzi
+        run: cat output.json
