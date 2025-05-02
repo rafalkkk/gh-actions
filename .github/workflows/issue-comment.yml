@@ -28,7 +28,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE: ${{ github.event.issue.number }}
-          REPO: ${{ github.event.repo.full_name }}
+          REPO: ${{ github.event.repository.full_name }}
 
       - name: Display comment id
         run: echo "${{ steps.add_comment.outputs.COMMENTID }}"
