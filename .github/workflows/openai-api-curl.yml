@@ -4,7 +4,8 @@ on:
   
 
 jobs:
-  call_openai:
+  chat:
+    if: startsWith(github.event.comment.body, '/chat')
     runs-on: ubuntu-latest
     steps:
       - name: Pobranie repozytorium
@@ -17,7 +18,7 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
             "model": "gpt-4o-mini-2024-07-18",
-            "messages": [{"role": "user", "content": "Hello OpenAI!"}]
+            "messages": [{"role": "user", "content": "You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Try to understand the message and write something what makes sense. The message is: ${{ github.event.comment.body }}"}]
           }' > output.json
 
       - name: Wyświetlenie odpowiedzi
