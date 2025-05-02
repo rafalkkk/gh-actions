@@ -7,7 +7,8 @@ on:
 jobs:
   chat:
     permissions:
-      issues: write
+      issues: write # byc moze to mozna usunac
+      pull-requests: write
     if: startsWith(github.event.comment.body, '/chat')
     runs-on: ubuntu-latest
     steps:
@@ -28,11 +29,12 @@ jobs:
                         -H "Content-Type: application/json" \
                         -d "$JSON")
 
-          echo "----"
-          echo $RESULT
-          echo "----"
-
           RESPONSE=$(echo $RESULT | jq -r '.choices[0].message.content')
+          
+          echo "----"
+          echo $RESPONSE
+          echo "----"
+          
           gh issue comment $ISSUE --body "$RESPONSE" --repo $REPO
         env:
           TEXT: ${{ github.event.comment.body }}
