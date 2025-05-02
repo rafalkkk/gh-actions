@@ -8,13 +8,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  # log:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - run: echo 'comment ${{ github.event.comment.body }}'
-  #     - run: echo '${{ toJson(github.event) }}'
   chat:
-  #  if: contains(github.event.comment.body, '/chat')
+    if: startsWith(github.event.comment.body, '/chat')
     runs-on: ubuntu-latest
     steps:
       - uses: ca-dp/code-butler@v1
@@ -22,7 +17,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           cmd: chat
-          comment_body: "${{ github.event.comment.body }}"
+          comment_body: ${{ github.event.comment.body }}
+          lang: en
+  # log:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo 'comment ${{ github.event.comment.body }}'
+  #     - run: echo '${{ toJson(github.event) }}'
+
+  
+  # chat:
+  # #  if: contains(github.event.comment.body, '/chat')
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: ca-dp/code-butler@v1
+  #       with:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  #         cmd: chat
+  #         comment_body: "${{ github.event.comment.body }}"
+
+          
   #review:
   #  if: contains(github.event.comment.body, '/review')
   #  runs-on: ubuntu-latest
