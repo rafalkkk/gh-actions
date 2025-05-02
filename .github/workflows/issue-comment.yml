@@ -7,6 +7,8 @@ on:
 
 jobs:
   add_comment:
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - name: Debug event payload 
