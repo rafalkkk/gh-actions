@@ -19,7 +19,7 @@ jobs:
                                                       Someone has just written a comment on a pull request. \
                                                       Currently the entire development team is on vacation. \
                                                       Try to understand the message and write something what makes sense. \
-                                                      Don't tell that the team is absent, just try to pretend that you are developer. \
+                                                      Do not tell that the team is absent, just try to pretend that you are developer. \
                                                       Try to personalize the message as possible. \
                                                       The message is: %s"}' "$TEXT")
           curl -X POST "https://api.openai.com/v1/chat/completions" \
