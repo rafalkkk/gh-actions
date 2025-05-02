@@ -1,4 +1,4 @@
-ULname: OpenAI API curl
+name: OpenAI API curl
 on: 
   issue_comment:
     types: [created]
