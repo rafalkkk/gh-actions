@@ -1,5 +1,5 @@
 import pytest
-from convert import convert_text
+from uppercase  import convert_text
 
 def test_to_uppercase():
     """Test dla konwersji na wielkie litery."""
