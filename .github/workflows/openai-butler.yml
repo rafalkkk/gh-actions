@@ -10,7 +10,7 @@ permissions:
 jobs:
   chat:
     if: startsWith(github.event.comment.body, '/chat')
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: ca-dp/code-butler@v1
         with:
