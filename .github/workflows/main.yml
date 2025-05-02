@@ -1,0 +1,36 @@
+name: Auto-comment-issue
+
+on:
+  issues:
+    types: opened
+  workflow_dispatch:
+
+jobs:
+  add_comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug event payload 
+        run: echo '${{ toJson(github.event) }}'
+
+      - name: Debug event payload (without section env)
+        run: env
+
+      - name: Debug event payload (with section env)
+        run: env
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Add the comment
+        id: add_comment
+        run: |
+          COMMENT_ID=$(gh issue comment $ISSUE --body "Wow, we have a new issue!")
+          echo "COMMENTID=$COMMENT_ID" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}
+
+      - name: Display comment id
+        run: echo "${{ steps.add_comment.outputs.COMMENTID }}"
+
+
+          
