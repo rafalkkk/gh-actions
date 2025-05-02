@@ -1,0 +1,23 @@
+name: Test GH CLI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show env (without section env)
+        run: env
+        
+      - name: Show env (with section env)
+        run: env
+        env:
+          GH_TOKEN: "${{secrets.GITHUB_TOKEN}}"
+
+      - name: gh auth status
+        run: gh auth status
+
+      - name: gh workflow list
+        run: gh workflow list
+        
