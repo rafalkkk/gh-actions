@@ -1,4 +1,4 @@
-name: OpenAI API Request
+name: OpenAI API curl
 on: 
   workflow_dispatch:
   
@@ -16,7 +16,6 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
-            "model": "gpt-4",
             "messages": [{"role": "user", "content": "Hello OpenAI!"}]
           }' > output.json
 
