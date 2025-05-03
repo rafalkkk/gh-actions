@@ -10,8 +10,8 @@ jobs:
     if: startsWith(github.event.comment.body, '/chat')
     runs-on: ubuntu-latest
     steps:
-      - name: Debug event payload 
-        run: echo '${{ toJson(github.event) }}'
+      # - name: Debug event payload 
+      #   run: echo '${{ toJson(github.event) }}'
 
       - name: Send request to OpenAI
         id: openai_response
