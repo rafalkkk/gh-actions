@@ -1,24 +1,20 @@
 name: OpenAI API curl
 on: 
   issue_comment:
-    types: [created]
-  
+    types: [created] 
 
 jobs:
   chat:
     permissions:
-      issues: write # byc moze to mozna usunac
       pull-requests: write
     if: startsWith(github.event.comment.body, '/chat')
     runs-on: ubuntu-latest
     steps:
       - name: Debug event payload 
         run: echo '${{ toJson(github.event) }}'
-        
-      - name: Pobranie repozytorium
-        uses: actions/checkout@v4
 
-      - name: Wysyłanie zapytania do OpenAI API
+      - name: Send request to OpenAI
+        id: openai_response
         run: |
           DESC="You are servicing a repository of python function which converts input strings into uppercase or lowercase. Someone has just written a comment on a pull request. Currently the entire development team is on vacation. Try to understand the message and write something what makes sense. Do not tell that the team is absent, just try to pretend that you are developer. Try to personalize the message as possible. If you sign your response please use name Martik Bartik. The message is: " 
           ESCAPED_TEXT=$(echo "$DESC $TEXT" | sed "s/'/\'/g")
@@ -34,13 +30,15 @@ jobs:
           echo "----"
           echo $RESPONSE
           echo "----"
-          
-          gh issue comment $ISSUE --body "$RESPONSE" --repo $REPO
+          echo "RESPONSE=$RESPONSE" >> $GITHUB_OUTPUT
         env:
           TEXT: ${{ github.event.comment.body }}
+
+      - name: Write the comment
+        run: gh issue comment $ISSUE --body "$RESPONSE" --repo $REPO
+        env:
           ISSUE: ${{ github.event.issue.number }}
+          RESPONSE: ${{ steps.outputs.openai_response.RESPONSE }}
           REPO: ${{ github.event.repository.full_name }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Wyświetlenie odpowiedzi
-      #   run: cat output.json
