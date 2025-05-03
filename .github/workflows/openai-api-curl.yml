@@ -39,7 +39,7 @@ jobs:
         run: gh issue comment $ISSUE --body "$RESPONSE" --repo $REPO
         env:
           ISSUE: ${{ github.event.issue.number }}
-          RESPONSE: ${{ steps.outputs.openai_response.RESPONSE }}
+          RESPONSE: ${{ steps.openai_response.outputs.RESPONSE }}
           REPO: ${{ github.event.repository.full_name }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
