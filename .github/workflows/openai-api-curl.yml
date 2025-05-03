@@ -31,7 +31,7 @@ jobs:
           echo $ESCAPED_RESPONSE
           echo "----"
           # echo "RESPONSE=\"$ESCAPED_RESPONSE\"" >> $GITHUB_OUTPUT
-          echo "RESPONSE='text'" >> $GITHUB_OUTPUT
+          echo "RESPONSE='$ESCAPED_RESPONSE'" >> $GITHUB_OUTPUT
         env:
           TEXT: ${{ github.event.comment.body }}
 
