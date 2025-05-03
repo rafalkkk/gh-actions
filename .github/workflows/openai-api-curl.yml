@@ -28,6 +28,10 @@ jobs:
           RESPONSE=$(echo $RESULT | jq -r '.choices[0].message.content')       
           ESCAPED_RESPONSE=$(echo "$RESPONSE" | sed "s/'/\\\'/g" | sed 's/"/\\\"/g' | tr '\n' ' ')
           echo "----"
+          echo $DESC
+          echo "----"
+          echo $ESCAPED_TEXT
+          echo "----"
           echo $RESPONSE
           echo "----"
           echo $ESCAPED_RESPONSE
