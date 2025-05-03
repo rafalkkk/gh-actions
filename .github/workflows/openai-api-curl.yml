@@ -30,7 +30,8 @@ jobs:
           echo "----"
           echo $RESPONSE
           echo "----"
-          echo "RESPONSE='$RESPONSE'" >> $GITHUB_OUTPUT
+          ESCAPED_RESPONSE=ESCAPED_TEXT=$(echo "$RESPONSE" | sed "s/'/\'/g")
+          echo "RESPONSE=\"$ESCAPED_RESPONSE\"" >> $GITHUB_OUTPUT
         env:
           TEXT: ${{ github.event.comment.body }}
 
