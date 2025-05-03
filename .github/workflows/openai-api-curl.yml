@@ -28,6 +28,8 @@ jobs:
           RESPONSE=$(echo $RESULT | jq -r '.choices[0].message.content')       
           ESCAPED_RESPONSE=$(echo "$RESPONSE" | sed "s/'/\\\'/g" | sed 's/"/\\\"/g' | tr '\n' ' ')
           echo "----"
+          echo $RESPONSE
+          echo "----"
           echo $ESCAPED_RESPONSE
           echo "----"
           # echo "RESPONSE=\"$ESCAPED_RESPONSE\"" >> $GITHUB_OUTPUT
