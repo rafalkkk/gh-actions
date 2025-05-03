@@ -26,12 +26,12 @@ jobs:
                         -d "$JSON")
 
           RESPONSE=$(echo $RESULT | jq -r '.choices[0].message.content')       
-          ESCAPED_RESPONSE=ESCAPED_TEXT=$(echo "$RESPONSE" | sed "s/'/\'/g" | sed 's/"/\\"/g')
+          ESCAPED_RESPONSE=$(echo "$RESPONSE" | sed "s/'/\'/g" | sed 's/"/\\"/g')
           echo "----"
           echo $ESCAPED_RESPONSE
           echo "----"
           # echo "RESPONSE=\"$ESCAPED_RESPONSE\"" >> $GITHUB_OUTPUT
-          echo "RESPONSE=text with spaces" >> $GITHUB_OUTPUT
+          echo "RESPONSE='text'" >> $GITHUB_OUTPUT
         env:
           TEXT: ${{ github.event.comment.body }}
 
