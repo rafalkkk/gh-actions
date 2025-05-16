@@ -24,7 +24,7 @@ jobs:
         IS_COLLABORATOR=$(gh api /repos/$REPO/collaborators/$AUTHOR 2>/dev/null || echo "false")
     
         if [[ "$IS_COLLABORATOR" != "false" ]]; then
-          gh issue edit $ISSUE --assignee "$AUTHOR" --repo $REPO
+          gh issue assign $ISSUE --assignee "$AUTHOR" --repo $REPO
           echo "Assigned issue to $AUTHOR"
         else
           echo "Skipping assignment, $AUTHOR is not a collaborator."
