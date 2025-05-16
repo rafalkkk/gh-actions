@@ -18,18 +18,16 @@ jobs:
         REPO: ${{ github.event.repository.full_name }}
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Get issue author & check if they are a collaborator
+    - name: Assign issue if author is a collaborator
       run: |
         AUTHOR=$(gh issue view $ISSUE --json author | jq -r '.author.login')
-        IS_COLLABORATOR=$(gh api /repos/$REPO/collaborators/$AUTHOR --silent --fail || echo "false")
+        IS_COLLABORATOR=$(gh api /repos/$REPO/collaborators/$AUTHOR 2>/dev/null || echo "false")
     
         if [[ "$IS_COLLABORATOR" != "false" ]]; then
           gh issue edit $ISSUE --assignee "$AUTHOR" --repo $REPO
           echo "Assigned issue to $AUTHOR"
         else
-          OWNER=$(gh repo view $REPO --json owner | jq -r '.owner.login')
-          gh issue edit $ISSUE --assignee "$OWNER" --repo $REPO
-          echo "Assigning to owner, $AUTHOR is not a collaborator."
+          echo "Skipping assignment, $AUTHOR is not a collaborator."
         fi
       env:
         ISSUE: ${{ github.event.issue.number }}
