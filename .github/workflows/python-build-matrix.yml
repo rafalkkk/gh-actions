@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "uppercase-exe-${{ matrix.pyversion }}"
-          path: py-upper/dist/uppercase.exe
+          path: py-upper/dist/*
 
       # - name: Release
       #   uses: softprops/action-gh-release@v2
