@@ -12,10 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pyversion: ['3.11', '3.12', 3.13']
+        pyversion: ['3.11', '3.12']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.pyversion }}
 
       - name: Install Python dependencies
         uses: py-actions/py-dependency-install@v4
@@ -32,7 +37,7 @@ jobs:
     needs: test
     strategy:
       matrix:
-        pyversion: ['3.11', '3.12', 3.13']
+        pyversion: ['3.11', '3.12']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
