@@ -22,24 +22,15 @@ jobs:
     
     - name: Send code to OpenAI for review
       run: |
-        echo '{
-          "model": "gpt-4-turbo",
-          "messages": [
-              {"role": "system", "content": "You are an expert in programming. Review the code and suggest improvements."},
-              {"role": "user", "content": "'"$(jq -Rs '.' < diff.txt)"'"}
-            ]
-          }' | jq .
-
+        DIFF_CONTENT=$(jq -Rs '.' < diff.txt)  # Convert file to a JSON-safe string
+        JSON_PAYLOAD=$(jq -n --arg content "$DIFF_CONTENT" \
+          '{model: "gpt-4-turbo", messages: [{role: "system", content: "Review the following code diff and suggest improvements, detect errors, or bad practices."}, {role: "user", content: $content}]}')
+        
         RESPONSE=$(curl -X POST "https://api.openai.com/v1/chat/completions" \
           -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d '{
-            "model": "gpt-4-turbo",
-            "messages": [
-              {"role": "system", "content": "You are an expert in programming. Review the code and suggest improvements, detect errors or bad practicies. Avoid being too polite and dont write compliments."},
-              {"role": "user", "content": "'"$(jq -Rs '.' < diff.txt)"'"}
-            ]
-          }')
+          -d "$JSON_PAYLOAD")
+
         echo "$RESPONSE" > review.txt
 
     - name: Post review as comment
