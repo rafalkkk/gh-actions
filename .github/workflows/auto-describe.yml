@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Change label to "auto-assigned"
       run: |
-        gh issue edit $ISSUE --add-label "dispatch" --repo $REPO
+        gh issue edit $ISSUE --add-label "auto-assigned" --repo $REPO
       env:
         ISSUE: ${{ github.event.issue.number }}
         REPO: ${{ github.event.repository.full_name }}
