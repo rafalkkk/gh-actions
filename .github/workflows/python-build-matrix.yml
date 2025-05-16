@@ -82,7 +82,7 @@ jobs:
     permissions:
       contents: write  # Allows publishing a release
       packages: write  # If you are uploading packages
-      actions: read    # Allows reading artifacts
+      # actions: read    # Allows reading artifacts
     steps:
     - name: Download all artifacts
       uses: actions/download-artifact@v4
@@ -91,12 +91,6 @@ jobs:
 
     - name: List files
       run: ls -lR
-
-    - name: Rename artifacts before publishing
-      run: |
-        mv artifacts/uppercase-exe-3.11/uppercase.exe artifacts/uppercase-3.11.exe
-        mv artifacts/uppercase-exe-3.12/uppercase.exe artifacts/uppercase-3.12.exe
-        
 
     - name: Release
       uses: softprops/action-gh-release@v2
