@@ -56,6 +56,10 @@ jobs:
         working-directory: py-upper
         run: pyinstaller --onefile uppercase.py
 
+      - name: Rename artifact before upload
+        run: mv uppercase.exe uppercase-${{ matrix.python-version }}.exe
+        working-directory: py-upper/dist
+
       - name: List files after build
         run: ls -R
 
@@ -87,6 +91,11 @@ jobs:
 
     - name: List files
       run: ls -lR
+
+    - name: Rename artifacts before publishing
+      run: |
+        mv artifacts/uppercase-exe-3.11/uppercase.exe artifacts/uppercase-3.11.exe
+        mv artifacts/uppercase-exe-3.12/uppercase.exe artifacts/uppercase-3.12.exe
         
 
     - name: Release
