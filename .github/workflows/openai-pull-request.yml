@@ -21,6 +21,14 @@ jobs:
     
     - name: Send code to OpenAI for review
       run: |
+        echo '{
+          "model": "gpt-4-turbo",
+          "messages": [
+              {"role": "system", "content": "You are an expert in programming. Review the code and suggest improvements."},
+              {"role": "user", "content": "'"$(jq -Rs '.' < diff.txt)"'"}
+            ]
+          }' | jq .
+
         RESPONSE=$(curl -X POST "https://api.openai.com/v1/chat/completions" \
           -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
           -H "Content-Type: application/json" \
