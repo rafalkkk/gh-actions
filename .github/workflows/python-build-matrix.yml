@@ -57,7 +57,7 @@ jobs:
         run: pyinstaller --onefile uppercase.py
 
       - name: Rename artifact before upload
-        run: mv uppercase.exe uppercase-${{ matrix.python-version }}.exe
+        run: mv uppercase.exe uppercase-${{ matrix.pyversion }}.exe
         working-directory: py-upper/dist
 
       - name: List files after build
@@ -81,7 +81,7 @@ jobs:
     needs: build
     permissions:
       contents: write  # Allows publishing a release
-      packages: write  # If you are uploading packages
+      # packages: write  # If you are uploading packages
       # actions: read    # Allows reading artifacts
     steps:
     - name: Download all artifacts
