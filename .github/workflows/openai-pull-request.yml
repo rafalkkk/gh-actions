@@ -31,7 +31,9 @@ jobs:
           -H "Content-Type: application/json" \
           -d "$JSON_PAYLOAD")
 
-        echo "$RESPONSE" > review.txt
+        # echo "$RESPONSE" > review.txt
+        echo "$RESPONSE" | jq -r '.choices[0].message.content' > review.txt
+
 
     - name: Post review as comment
       run: |
