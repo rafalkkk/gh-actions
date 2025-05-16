@@ -20,7 +20,7 @@ jobs:
 
     - name: Assign issue if author is a collaborator
       run: |
-        AUTHOR=$(gh issue view $ISSUE --json author | jq -r '.author.login')
+        AUTHOR=$(gh issue view $ISSUE --json author --repo $REPO | jq -r '.author.login')
         IS_COLLABORATOR=$(gh api /repos/$REPO/collaborators/$AUTHOR 2>/dev/null || echo "false")
     
         if [[ "$IS_COLLABORATOR" != "false" ]]; then
