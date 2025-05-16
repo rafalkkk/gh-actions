@@ -28,7 +28,7 @@ jobs:
             "model": "gpt-4-turbo",
             "messages": [
               {"role": "system", "content": "You are an expert in programming. Review the code and suggest improvements, detect errors or bad practicies. Avoid being too polite and dont write compliments."},
-              {"role": "user", "content": "'"$(cat diff.txt)"'"}
+              {"role": "user", "content": "'"$(jq -Rs '.' < diff.txt)"'"}
             ]
           }')
         echo "$RESPONSE" > review.txt
