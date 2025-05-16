@@ -38,6 +38,8 @@ jobs:
     strategy:
       matrix:
         pyversion: ['3.11', '3.12']
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -62,5 +64,12 @@ jobs:
         with:
           name: "uppercase-exe-${{ matrix.pyversion }}"
           path: py-upper/dist/uppercase.exe
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: py-upper/dist/uppercase.exe
+          body: "Binaries of the uppercase program compiled for different Python versions"
+          tag_name: ${{ github.ref_name }}
 
         
