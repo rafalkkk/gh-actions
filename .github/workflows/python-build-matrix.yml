@@ -96,7 +96,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         # files: py-upper/dist/uppercase.exe
-        files: artifacts/
+        files: artifacts/*
         body: "Binaries of the uppercase program compiled for different Python versions"
         tag_name: ${{ github.ref_name }}
       
